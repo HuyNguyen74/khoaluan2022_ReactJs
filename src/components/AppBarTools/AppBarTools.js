@@ -12,9 +12,15 @@ import Container from '@mui/material/Container';
 import { logout } from "../../actions/auth";
 import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
+import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
+import RestoreIcon from '@mui/icons-material/Restore';
+import Badge from '@mui/material/Badge';
+import { totalProductCartSelector } from "../../selector/selectors";
 
 const AppBarTools = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
+  const totalProduct= useSelector(totalProductCartSelector);
+  console.log('total',totalProduct);
   const dispatch = useDispatch();
   const logOut = () =>{
     dispatch(logout())
@@ -30,17 +36,11 @@ const AppBarTools = () => {
             component="div"
             sx={{ mr: 2,color: 'white', display: 'flex' }}
           >
-            Team 3
+            Home
           </Typography>
           </Link>
           <Box sx={{ flexGrow: 1, display: 'flex' }}>
-            <Link to={"/category"} style={{ textDecoration: 'none' }}>
-              <Button
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                Category
-              </Button>
-            </Link>
+            
             <Link to={"/product"} style={{ textDecoration: 'none' }}>
               <Button
                 sx={{ my: 2, color: 'white', display: 'block' }}
@@ -50,16 +50,19 @@ const AppBarTools = () => {
               </Link>
           </Box>
           <Box>
-            <Link to={currentUser ? "/home" : "/login"} style={{ textDecoration: 'none' }}>
-              <IconButton aria-label="User">
-                <PersonIcon  fontSize="large" sx={{ color: '#f3e5f5' }} />
-              </IconButton>
-            </Link>
+            
             { currentUser &&
             <>
-            <Link to={"/home"} style={{ textDecoration: 'none' }}>
+            <Link to={"/history"} style={{ textDecoration: 'none' }}>
               <IconButton aria-label="Your Cart">
+                <RestoreIcon  fontSize="large" sx={{ color: '#f3e5f5' }} />
+              </IconButton>
+            </Link>
+            <Link to={"/cart"} style={{ textDecoration: 'none' }}>
+              <IconButton aria-label="Your Cart">
+                <Badge badgeContent={totalProduct} color="primary">
                 <AddShoppingCartIcon  fontSize="large" sx={{ color: '#f3e5f5' }} />
+                </Badge>
               </IconButton>
             </Link>
               <IconButton aria-label="Your Cart" onClick={logOut}>
@@ -67,6 +70,11 @@ const AppBarTools = () => {
               </IconButton>
               </>
               }
+              <Link to={currentUser ? "/profile" : "/login"} style={{ textDecoration: 'none' }}>
+              <IconButton aria-label="User">
+                <PersonIcon  fontSize="large" sx={{ color: '#f3e5f5' }} />
+              </IconButton>
+            </Link>
           </Box>
         </Toolbar>
       </Container>

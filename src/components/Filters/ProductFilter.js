@@ -72,14 +72,19 @@ const ProductFilter = () => {
               type='search'
               value={value}
               onChange={handleChange}
-              
+              sx={{
+                marginTop: 5,
+                alignItems: 'center',
+                textAlign: 'center',
+                
+                }}
           />
            <Container maxWidth="sm">
                
             <Stack 
                 direction="row" 
                 spacing={2}
-                marginTop='20px'
+                marginTop='30px'
                 marginBottom={2}
                 >
                     
@@ -87,13 +92,13 @@ const ProductFilter = () => {
                             
                                 
                             <Button 
-                            variant={selects.includes(Category.id) ? "contained":"outlined"} 
-                            key={Category.id} 
+                            variant={selects.includes(Category.typeId) ? "contained":"outlined"} 
+                            key={Category.typeId} 
                             onClick={handleClick} 
-                            value={Category.id}
+                            value={Category.typeId}
                             
                             >
-                                {Category.name}</Button>
+                                {Category.typeName}</Button>
                             
                             
                             

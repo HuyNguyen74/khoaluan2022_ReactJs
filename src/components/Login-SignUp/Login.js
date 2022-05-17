@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { Link,Navigate } from 'react-router-dom';
+import { Link,Navigate,cre } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -12,11 +12,13 @@ import Container from '@mui/material/Container';
 import { useForm } from 'react-hook-form';
 import { login } from "../../actions/auth";
 import { yupResolver } from '@hookform/resolvers/yup';
+import {createBrowserHistory} from "history";
 import * as Yup from 'yup';
 
 function Login(props) {
     // const[email,setEmail] = useState('');
     // const[password,setPassword] = useState('');
+    const history =createBrowserHistory();
     const [loading, setLoading] = useState(false);
     const { isLoggedIn } = useSelector(state => state.auth);
     const { message } = useSelector(state => state.message);
@@ -43,16 +45,18 @@ function Login(props) {
       const onSubmit = data => {
         dispatch(login(data.username, data.password))
         .then(() => {
-          props.history.push("/profile");
-          window.location.reload();
+          alert('login success');
+          //history.push("/profile");
+          //window.location.reload();
         })
         .catch(() => {
+          
           setLoading(false);
         });
       };
 
       if (isLoggedIn) {
-        return <Navigate  to="/profile" />;
+        return <Navigate  to="/home" />;
       }
   return (
       <>
@@ -65,10 +69,12 @@ function Login(props) {
             alignItems: 'center',
             border: 1,
             borderRadius: '16px',
-            borderColor: 'secondary.main'
+            borderColor: 'secondary.main',
+            margin: 5,
+            
           }}
         >
-          <Typography component="h" variant="h2" color="secondary">
+          <Typography  variant="h2" color="secondary">
             Login
           </Typography>
           <Box component="form" noValidate sx={{ m: 1 }}>
@@ -119,19 +125,20 @@ function Login(props) {
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link to="#" variant="body2">
-                  Forgot password?
+              <Grid item xs key={1}>
+              <Link to={"#"} >
+                  Forgot?
                 </Link>
               </Grid>
-              <Grid item>
-                <Link to="/signup" variant="body2">
+              <Grid item key={2}>  
+                <Link to={"/signup"} >
                   SignUp
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
+        
       </Container>
       </>
   );

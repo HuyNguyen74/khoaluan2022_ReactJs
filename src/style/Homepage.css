@@ -1,0 +1,61 @@
+.container-fluid{
+    padding: 0px;
+}
+.homepage{
+    min-height: 500px;
+}
+.homepage .banner{
+    width: 100%;
+    height: 400px;
+    background-image: url('D:\Do an\Project-React\public\image_dt\baner.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+}
+.banner .banner-title{
+    font-size: 34px;
+    font-style: italic;
+}
+.banner .banner-description{
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+.banner .banner-btn .btn{
+    font-weight: bold;
+    background-color: white;
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.homepage .container-card{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.homepage .overview-card{
+    width: 1500px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    overflow-y: auto;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-radius: 10px;
+}
+.homepage .overview-card::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-color: gray;
+}
+.homepage .overview-card::-webkit-scrollbar{
+    height: 10px;
+}
+  /* Track */
+.homepage .overview-card::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 3px grey; 
+    border-radius: 10px;
+}

@@ -1,11 +1,11 @@
 export const productsListSelector = (state) =>{
-
+    // return state.prdt.productsList
     const results =state.prdt.productsList.filter((product)=>{
         
         return (
             state.prdt.filters.selectType.length >0? 
-            product.title.includes(state.prdt.filters.search) && state.prdt.filters.selectType.includes(product.idCategory)
-            :product.title.includes(state.prdt.filters.search)
+            product.phoneName.toLowerCase().includes(state.prdt.filters.search.toLowerCase()) && state.prdt.filters.selectType.includes(product.type.typeId)
+            :product.phoneName.toLowerCase().includes(state.prdt.filters.search.toLowerCase())
             
         );
             
@@ -14,8 +14,8 @@ export const productsListSelector = (state) =>{
             return results.sort((prd1,prd2)=>{
 
                 if( state.prdt.filters.sort ==='name'){
-                    return prd1.title.toLowerCase()=== prd2.title.toLowerCase() ? 0 
-                     : prd1.title.toLowerCase()> prd2.title.toLowerCase() ? 1
+                    return prd1.phoneName.toLowerCase()=== prd2.phoneName.toLowerCase() ? 0 
+                     : prd1.phoneName.toLowerCase()> prd2.phoneName.toLowerCase() ? 1
                      : -1
                 }else{
                     if( state.prdt.filters.sort ==='price'){
@@ -33,3 +33,6 @@ export const productsListSelector = (state) =>{
 export const categoriesSelector = (state) => state.prdt.categories;
 export const searchValueSelector = (state) => state.prdt.filters.search;
 export const filterCategoriesSelector = (state) => state.prdt.filters.selectType;
+export const listCart = (state) => state.cart.listCart;
+export const totalProductCartSelector = (state) => state.cart.totalProduct;
+export const totalPriceCartSelector = (state) => state.cart.totalPrice;

@@ -1,14 +1,20 @@
 import {PRODUCTS,CATEGORIES} from '../Enum/Constants'
 import {SEARCH_PRODUCTS,SORT_PRODUCTS,FILTER_CATEGORY} from '../actions/types';
+import productApi from '../services/product.services';
 
+productApi.getAll();
+productApi.getCategory();
+const products= JSON.parse(localStorage.getItem('products')) ;
+const categories= JSON.parse(localStorage.getItem('categories')) ;
+console.log('products',products);console.log('cate',categories);
 const initState={
     filters:{
         search:'',
         selectType:[],
-        sort: 'price'
+        sort: 'none'
     },
-    categories:CATEGORIES,
-    productsList:PRODUCTS
+    categories:categories,
+    productsList:products
 }
 
 export default function(state=initState,action) {

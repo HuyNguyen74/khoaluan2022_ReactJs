@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import {useDispatch,useSelector} from 'react-redux';
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
@@ -16,6 +16,7 @@ import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import { categoriesSelector, filterCategoriesSelector } from '../selector/selectors';
 import { PaginationItem } from '@mui/material';
+import productApi from '../services/product.services';
 
 const Category = () => {
     const [value,setValue]=useState('');
@@ -25,7 +26,18 @@ const Category = () => {
     const dispatch= useDispatch();
     const listCategories= useSelector(categoriesSelector);
     
-    
+    useEffect(() => {
+    //   const fetchProduct = async () =>{
+    //       try {
+    //           const res = await productApi.getAll();
+    //           console.log("data ",res);
+    //       } catch (error) {
+    //           alert("loi product",error);
+    //       }
+    //   }
+    //   fetchProduct();
+    console.log('kokokoko');
+    },[])
     const handleChange = (e) =>{
         
         setValue(e.target.value);

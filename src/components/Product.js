@@ -19,9 +19,6 @@ import ProductDetail from './ProductDetail';
 import ProductFilter from './Filters/ProductFilter'; 
 import { productsListSelector } from '../selector/selectors';
 
-
-
-
 const Product = () => {
   const [products, setProducts] = useState([])
   const [page,setPage] =useState(0);
@@ -29,8 +26,6 @@ const Product = () => {
   const navigate = useNavigate();
   const listProducts= useSelector(productsListSelector);
   
-
-
   useEffect(() =>{
     let tam=listProducts.map(product => product);
     const result=tam.splice(Number(page-1)*8,8);
@@ -56,39 +51,33 @@ const Product = () => {
             borderBottom={2}
             marginBottom={5}
             >
-         
-            
-              
-            
-           Sản phẩm
+           Product
           </Typography>
-          
-        
-          
+
         </div>
-        <div className='box-products'>
+        <div className='box-products' >
           {products.map((value) => (
             <Card
-              key={value.id}
+              key={value.phoneId}
               sx={{
-                width: 250,
+                width: 230,
                 float: 'left',
                 marginLeft: 2.5,
                 marginRight: 2.5,
-                marginBottom: 1
+                marginBottom: 2
               }}
             >
               <CardMedia 
-                image={value.images[0]}
-                sx={{width:'100%',height:'400px'}}
+                image={value.img}
+                sx={{width:'100%',height:'290px'}}
                 >
                 </CardMedia>
               <CardContent>
                 <Typography sx={{ fontSize: 14 }} gutterBottom>
-                  {value.title}
+                  {value.phoneName}
                 </Typography>
                 <Typography variant='body2' color='text.secondary'>
-                  {value.description}
+                  {value.ram}
                 </Typography>
                 <Typography
                   sx={{ mt: 1.5, textAlign: 'right' }}
@@ -98,8 +87,8 @@ const Product = () => {
                 </Typography>
               </CardContent>
               <CardActions sx={{justifyContent:'space-around'}}>
-                <Link to={`/detail?id=${value.id}`} > Xem chi tiết</Link>
-                <Button size='small' color='secondary' >Thêm Vào</Button>
+                <Link to={`/detail?id=${value.phoneId}`} > Detail</Link>
+                <Link to={`/cart?id=${value.phoneId}`} > Add Cart</Link>
               </CardActions>
             </Card>
           ))}

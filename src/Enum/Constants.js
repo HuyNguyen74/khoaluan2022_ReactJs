@@ -1,3 +1,5 @@
+import productApi from "../services/product.services"
+
 // Authentication
 export const USER_LOGIN = "USER_LOGIN"
 export const USER_LOGOUT = "USER_LOGOUT"
@@ -6,6 +8,16 @@ export const USER_LOGOUT = "USER_LOGOUT"
 export const ADD_CART = "ADD_CART"
 export const REMOVE_CART = "REMOVE_CART"
 export const DELETE_CART = "DELETE_CART"
+// const fetchProduct = async () =>{
+//     try {
+//         const res = await productApi.getAll();
+//         console.log("data ",res);
+//         return res.data;
+//     } catch (error) {
+//         alert("loi product",error);
+//     }
+// }
+// export const PRODUCTSS=fetchProduct();
 
 export const PRODUCTS = [
     {

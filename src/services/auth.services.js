@@ -1,33 +1,55 @@
 import axios from 'axios';
-const API_URL = 'http://localhost:8080/api/auth/';
-const register = (username, email, password) => {
-    return axios.post(API_URL + "signup",{
-        username,
-        email,
-        password
+import axiosClient from './axiosClient';
+const API_URL = 'http://localhost:8080/khoaluan/api/';
+const register = async (fullname,username, email, password, phone) => {
+  
+    const response= await axiosClient.post("/signup",{
+        name: fullname,
+        userName: username,
+        email: email,
+        pass: password,
+        phone: phone
     });
-
+    return response;
 };
-const login = (username, password) => {
-    return axios
-      .post(API_URL + "signin", {
-        username,
-        password,
-      })
-      .then((response) => {
-        if (response.data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-        }
-        return response.data;
-      });
-  };
+async function login(username, password) {
+  const response = await  axiosClient
+    .post( "/login", {
+      userName: username,
+      pass: password
+    });
+    console.log('mess',response);
+  if (response !== undefined && response !== null && response !== '') {
+    localStorage.setItem("user", JSON.stringify(response));
+  }
+  return response ;
+}
 
-const logout = () =>{
-    localStorage.removeItem("user");
+const Update = async(id,name,email,phone,username,pass) => {
+  const response = await axiosClient
+    .post('/updateuser',{
+      customerId: id,
+      name: name,
+      email: email,
+      phone: phone,
+      userName: username,
+      pass: pass,
+    });
+    if (response !== undefined && response !== null && response !== '') {
+      localStorage.setItem("user", JSON.stringify(response));
+    }
+    console.log('up',response)
+    return response;
+}
+
+const logout =async () =>{
+  localStorage.removeItem("user");
+  window.location.reload();
 };
 
 export default {
     register,
     login,
     logout,
+    Update,
 };

@@ -8,3 +8,7 @@ export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 export const SEARCH_PRODUCTS = "SEARCH_PRODUCTS";
 export const FILTER_CATEGORY = "FILTER_CATEGORY";
 export const SORT_PRODUCTS = "SORT_PRODUCTS";
+export const CART_LIST= 'CART_LIST';
+export const CART_REMOVE= 'CART_REMOVE';
+export const CART_UPDATE= 'CART_UPDATE';
+export const CART_ADD= 'CART_ADD';

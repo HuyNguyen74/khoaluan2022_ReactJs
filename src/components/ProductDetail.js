@@ -35,14 +35,18 @@ const ProductDetail = ()=> {
     let tam={};
     listProducts.forEach(prd=>{
         
-        if(search.split('=')[1]===prd.id){tam=prd;} 
+        if(search.split('=')[1]==prd.phoneId){tam=prd;} 
     });
     
     const product=tam;
+   
    const handleSelectSize= (e)=>{
        
        setIsSelect(e.target.value);
    }
+   useEffect(()=>{
+    console.log('render');
+    },[])
     return (
         
        <>
@@ -53,15 +57,15 @@ const ProductDetail = ()=> {
                 marginBottom={2}
              >Detail</Typography>
 
-            <Box sx={{ flexGrow: 1 }} marginTop={5}>
-            <Grid container spacing={2} columns={5}>
-                <Grid item xs={3}>
+            <Box sx={{ flexGrow: 1 }} marginTop={5} margin={5}>
+            <Grid container spacing={2} columns={4}>
+                <Grid item xs={2}>
                     
                         <Card
                            key={1}
                             sx={{
-                                width: 270,
-                                height: 300,
+                                width: 290,
+                                height: 350,
                                 float: 'left',
                                 marginLeft: 5.5,
                                 marginRight: 2.5,
@@ -69,28 +73,12 @@ const ProductDetail = ()=> {
                             }}
                             >  
                             <CardMedia 
-                                image={product.images[0]}
+                                image={product.img}
                                 sx={{width:'100%',height:'100%'}}
                                 >
                             </CardMedia>
                         </Card>
-                        <Card
-                           key={2}
-                            sx={{
-                                width: 270,
-                                height: 300,
-                                float: 'left',
-                                marginLeft: 5.5,
-                                marginRight: 2.5,
-                                marginBottom: 1
-                            }}
-                            >  
-                            <CardMedia 
-                                image={product.images[1]}
-                                sx={{width:'100%',height:'100%'}}
-                                >
-                            </CardMedia>
-                        </Card>
+                        
                     
                 </Grid>
                 <Grid item xs={2}>
@@ -101,11 +89,21 @@ const ProductDetail = ()=> {
                                     <Typography
                                         align='left'
                                         variant='h5'
-                                        >{product.title}    
+                                        component={'div'}
+
+                                        >
+                                            {product.phoneName}({product.ram}/{product.rom})   
                                     </Typography>
                                     <Typography
                                         align='left'
-                                        >{product.description}
+                                        margin={2}
+                                        >
+                                             {product.screen}
+                                    </Typography>
+                                    <Typography
+                                        align='left'
+                                        >
+                                            Pin: {product.pin}
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={1}>
@@ -123,7 +121,7 @@ const ProductDetail = ()=> {
                             align='left'
                             marginBottom={3}
                             >
-                            <ArrowRightIcon align='left'/>Select Size
+                            <ArrowRightIcon align='left'/>Select Color
                            
                         </Typography>
                         <Box
@@ -138,13 +136,13 @@ const ProductDetail = ()=> {
                             textAlign='center'
                             marginBottom={5}
                             >
-                            {product.size.map((pr,index) => (
+                            {/* {product.size.map((pr,index) => (
                                 <Button variant={isSelect===pr?'contained':'outlined'}  key={index} onClick={handleSelectSize} value={pr}>{pr} </Button>
                             ))}
-                            
+                             */}
                             
                         </Box>
-                        <Button variant='contained' color='success'>Thêm vào giỏ</Button>
+                        <Button variant='contained' color='success'>Add cart</Button>
                     </Item>
                 </Grid>
             </Grid>
