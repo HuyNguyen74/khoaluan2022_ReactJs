@@ -41,7 +41,22 @@ const Update = async(id,name,email,phone,username,pass) => {
     console.log('up',response)
     return response;
 }
-
+const Order = async(id,name,email,phone,username,pass) => {
+  const response = await axiosClient
+    .post('/order',{
+      customerId: id,
+      name: name,
+      email: email,
+      phone: phone,
+      userName: username,
+      pass: pass,
+    });
+    if (response !== undefined && response !== null && response !== '') {
+      localStorage.setItem("user", JSON.stringify(response));
+    }
+    console.log('up',response)
+    return response;
+}
 const logout =async () =>{
   localStorage.removeItem("user");
   window.location.reload();

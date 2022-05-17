@@ -21,3 +21,17 @@ export const updateCard =(r)=> {
         payload:r
 }
 }
+export const updateTotalProduct =(r)=> {
+    console.log('actuon4',r);
+    return {
+        type: "CART_UPDATE_PRO",
+        payload:r
+}
+}
+export const updateTotalPrice =(r)=> {
+    console.log('actuon5',r);
+    return {
+        type: "CART_UPDATE_PRI",
+        payload:r
+}
+}
