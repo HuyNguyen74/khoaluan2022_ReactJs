@@ -41,20 +41,13 @@ const Update = async(id,name,email,phone,username,pass) => {
     console.log('up',response)
     return response;
 }
-const Order = async(id,name,email,phone,username,pass) => {
+const Order = async(customerId,bills) => {
+  console.log('cusId',customerId);
   const response = await axiosClient
-    .post('/order',{
-      customerId: id,
-      name: name,
-      email: email,
-      phone: phone,
-      userName: username,
-      pass: pass,
-    });
-    if (response !== undefined && response !== null && response !== '') {
-      localStorage.setItem("user", JSON.stringify(response));
-    }
-    console.log('up',response)
+    .post(`/order?customerId=${customerId}`,
+     bills
+    );
+ 
     return response;
 }
 const logout =async () =>{
@@ -67,4 +60,5 @@ export default {
     login,
     logout,
     Update,
+    Order,
 };

@@ -42,6 +42,11 @@ export default  function(state=initState,action) {
                  ...state,
                 totalPrice: action.payload,         
                 }
+        case "PAYMENT":
+            return {
+                 ...state,
+                listCart: action.payload,         
+                }
         default: return state;
     }
 }

@@ -9,12 +9,13 @@ import Paper from '@mui/material/Paper';
 import { Button, Card, CardActions, CardMedia, Container, TextField, Typography } from '@mui/material';
 
 
-import productApi from '../services/product.services';
+import AuthService from '../services/auth.services';
 import { useDispatch, useSelector } from "react-redux";
 import {useLocation} from 'react-router-dom';
 import {productsListSelector,totalProductCartSelector,totalPriceCartSelector, listCart} from '../selector/selectors';
 import {Link} from 'react-router-dom';
-import {addCard,removeCard,updateCard,updateTotalProduct,updateTotalPrice} from '../actions/cart';
+import {addCard,removeCard,updateCard,updateTotalProduct,updateTotalPrice,payment} from '../actions/cart';
+import authServices from '../services/auth.services';
 
 const Cart = () =>{
     
@@ -45,7 +46,7 @@ const Cart = () =>{
         let s=0;
         if(tam.length <=0 ) return 0;
         tam.forEach(value => {
-            s= value.quantily*value.product.price + s;
+            s= value.quantily*value.price + s;
         })
         return s;
     }
@@ -61,7 +62,7 @@ const Cart = () =>{
            console.log('rekkkk')
             if(tam.length>0 ){
                 for(let i=0 ; i< tam2.length;i++){
-                    if(tam2[i].product.phoneId === tam[0].phoneId)
+                    if(tam2[i].phoneId === tam[0].phoneId)
                     {
                         tam2[i].quantily = tam2[i].quantily +1;
                         check=true;
@@ -70,7 +71,14 @@ const Cart = () =>{
                     }
                 }
                 if(!check){
-                    tam2.push({product:tam[0],quantily: 1});
+                    tam2.push(
+                        {phoneId:tam[0].phoneId,
+                            phoneName:tam[0].phoneName,
+                            img:tam[0].img,
+                            rom:tam[0].rom,
+                            ram:tam[0].ram,
+                            price:tam[0].price,
+                            quantily: 1});
                   
                 }
                 currentUser && dispatch(addCard(tam2))
@@ -79,6 +87,7 @@ const Cart = () =>{
 
                 currentUser && setCarts(tam2);
             }
+            currentUser && setCarts(tam2);
         }
         
 
@@ -89,7 +98,7 @@ const Cart = () =>{
        
         let lc= listCarts.map(c=>c);
         lc.forEach(element => {
-            if(element.product.phoneId.toString() === e.target.id ){
+            if(element.phoneId.toString() === e.target.id ){
                 element.quantily =Number(e.target.value);
             }
         });
@@ -101,7 +110,7 @@ const Cart = () =>{
     const onRemove = (e) =>{
         let lc= listCarts.map(c=>c);
        const ds= lc.filter((cart)=> {
-            return cart.product.phoneId.toString() !== e.target.id;
+            return cart.phoneId.toString() !== e.target.id;
         })
         console.log('liss',ds)
         lap=false;
@@ -112,6 +121,20 @@ const Cart = () =>{
     }
     const handelPayment =()=>{
         console.log('bill',listCarts);
+        try { 
+            const res = authServices.Order(currentUser.customerId,carts).then((data)=>{
+                if(data){
+                    alert('order success.');
+                }else{
+                    alert('Order faild');
+                }
+                return data;
+            });
+            setCarts([]);
+            dispatch(payment())&& dispatch(updateTotalProduct(sumPro([])))&& dispatch(updateTotalPrice(sumPri([])));
+        } catch (error) {
+            alert('faild to Order')
+        }
     }
     return(
 
@@ -127,15 +150,15 @@ const Cart = () =>{
                 <TableBody>
                 {carts.map((row) => (
                     <TableRow
-                    key={row.product.phoneId}
+                    key={row.phoneId}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                     <TableCell component="th" scope="row">
-                        {row.product.phoneId}
+                        {row.phoneId}
                     </TableCell>
                     <TableCell align="right">
                         <Card
-                             key={row.product.phoneId}
+                             key={row.phoneId}
                              sx={{
                                width: '120px',
                                float: 'left',
@@ -145,28 +168,28 @@ const Cart = () =>{
                              }}
                         >
                             <CardMedia 
-                            image={row.product.img}
+                            image={row.img}
                             sx={{width:'100%',height:'150px'}}
                             >
                             </CardMedia>
-                            <Typography align='center'>{row.product.phoneName}</Typography>
-                            <Typography align='center'>{row.product.rom}</Typography>
+                            <Typography align='center'>{row.phoneName}</Typography>
+                            <Typography align='center'>{row.rom}</Typography>
                             
                         </Card>
                         
 
                     </TableCell>
-                    <TableCell align="right">Price: {row.product.price}$</TableCell>
+                    <TableCell align="right">Price: {row.price}$</TableCell>
                     <TableCell align="right">Quantily: {row.quantily}</TableCell>
                     <TableCell align="right">
                         <TextField type={'number'} 
                             value={row.quantily}
                             onChange={handleChange}
-                            id={row.product.phoneId.toString()}
+                            id={row.phoneId.toString()}
                             
                              ></TextField>
                     </TableCell>
-                    <TableCell align="right"><Button onClick={onRemove} id={row.product.phoneId.toString()}>Remove</Button></TableCell>
+                    <TableCell align="right"><Button onClick={onRemove} id={row.phoneId.toString()}>Remove</Button></TableCell>
                     </TableRow>
                 ))}
                 </TableBody>

@@ -35,3 +35,10 @@ export const updateTotalPrice =(r)=> {
         payload:r
 }
 }
+export const payment=()=> {
+    console.log('actuon6');
+    return {
+        type: "PAYMENT",
+        payload:[]
+}
+}
