@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { Link,Navigate,cre } from 'react-router-dom';
+import { Link,Navigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -89,7 +89,7 @@ function Login(props) {
               {...register('username')}
                 error={errors.username ? true : false}
             />
-            <Typography variant="inherit" color="textSecondary">
+            <Typography variant="inherit" color="red">
                 {errors.username?.message}
               </Typography>
 
@@ -105,7 +105,7 @@ function Login(props) {
               {...register('password')}
               error={errors.password ? true : false}
             />
-            <Typography variant="inherit" color="textSecondary">
+            <Typography variant="inherit" color="red">
                 {errors.password?.message}
               </Typography>
             <FormControlLabel

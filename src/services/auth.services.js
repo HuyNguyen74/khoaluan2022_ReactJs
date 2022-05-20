@@ -52,7 +52,7 @@ const Order = async(customerId,bills) => {
 }
 const logout =async () =>{
   localStorage.removeItem("user");
-  window.location.reload();
+  //window.location.reload();
 };
 
 export default {

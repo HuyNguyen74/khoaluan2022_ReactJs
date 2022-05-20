@@ -23,7 +23,7 @@ const History = () =>{
                 setHistories(data);
             })
         } catch (error) {
-            alert('history faild.')
+            alert('history failed.')
         }
        
             
@@ -32,7 +32,7 @@ const History = () =>{
     return(
 
        <>
-        {histories.length >0 ? 
+        {histories.length >0 && currentUser ? 
             <Container component={'main'} >
                 <Typography align='center' borderBottom={2} borderColor='Highlight' margin={4} minWidth={650}>History</Typography>
             <TableContainer component={Paper} sx={{margin: 4,alignItems:'center'}}>
@@ -40,7 +40,7 @@ const History = () =>{
                 <TableHead>
                 <TableRow>
                     <TableCell >id</TableCell>
-                    <TableCell align="right">Product</TableCell>
+                    <TableCell align="right" >Product</TableCell>
                     <TableCell align="right">Quantily</TableCell>
                     <TableCell align="right">Status</TableCell>
                     <TableCell align="right">BuyDate</TableCell>

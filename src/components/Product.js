@@ -41,6 +41,7 @@ const Product = () => {
   },[page]);
   
   return (
+    
     <div className='list-products container-fluid'>
       <div className='products'>
         <div className='my-3'>
@@ -55,6 +56,7 @@ const Product = () => {
           </Typography>
 
         </div>
+        {listProducts.length >0 ?
         <div className='box-products' >
           {products.map((value) => (
             <Card
@@ -93,8 +95,12 @@ const Product = () => {
             </Card>
           ))}
         </div>
+        : <>
+        <Typography>Not Found.</Typography>
+        </>
+    }
       </div>
-
+     { listProducts.length >0 &&
       <div className='pagination'>
         <Stack spacing={1}>
           <Pagination
@@ -109,7 +115,9 @@ const Product = () => {
           />
         </Stack>
       </div>
+      }
     </div>
+    
   )
 }
 

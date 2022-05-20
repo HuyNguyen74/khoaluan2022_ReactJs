@@ -4,15 +4,7 @@ listCart: [],
     totalProduct:0,
     totalPrice: 0,
 }
-const sumPro= (tam)=>{
-    let s=0;
-    if(tam.length <=0 ) return 0;
-    tam.forEach(value => {
-        s= value.quantily + s;
-    })
-    console.log('ttong',s);
-    return s;
-}
+
 export default  function(state=initState,action) {
  
     switch(action.type){

@@ -11,7 +11,7 @@ import { Button, Card, CardActions, CardMedia, Container, TextField, Typography 
 
 import AuthService from '../services/auth.services';
 import { useDispatch, useSelector } from "react-redux";
-import {useLocation} from 'react-router-dom';
+import {useLocation, useNavigate, Navigate} from 'react-router-dom';
 import {productsListSelector,totalProductCartSelector,totalPriceCartSelector, listCart} from '../selector/selectors';
 import {Link} from 'react-router-dom';
 import {addCard,removeCard,updateCard,updateTotalProduct,updateTotalPrice,payment} from '../actions/cart';
@@ -23,6 +23,7 @@ const Cart = () =>{
     const dispatch = useDispatch();
     const { user: currentUser } = useSelector((state) => state.auth);
     const {search} =useLocation();
+    const navigate =useNavigate();
     const listProducts = useSelector(productsListSelector);
     const totalPrice= useSelector(totalPriceCartSelector);
     const [carts,setCarts] = useState([
@@ -51,7 +52,11 @@ const Cart = () =>{
         return s;
     }
     useEffect(()=>{
-        if(!currentUser) alert("please login before")
+        if(!currentUser){
+            alert("please login before");
+            navigate('/product');
+            //<Navigate to={'product'}></Navigate>
+        } 
         if(lap){
             const tam =listpro.filter(pro => {
                 return pro.phoneId.toString() === search.split('=')[1];
@@ -59,7 +64,7 @@ const Cart = () =>{
             let tam2= listCarts.map(cart=> cart);
            
             let check =false;
-           console.log('rekkkk')
+           
             if(tam.length>0 ){
                 for(let i=0 ; i< tam2.length;i++){
                     if(tam2[i].phoneId === tam[0].phoneId)
@@ -102,7 +107,8 @@ const Cart = () =>{
                 element.quantily =Number(e.target.value);
             }
         });
-        setCarts(lc);console.log('change',lc)
+        setCarts(lc);
+        // console.log('change',lc)
         dispatch(updateCard(lc))
         && dispatch(updateTotalProduct(sumPro(lc)))
         && dispatch(updateTotalPrice(sumPri(lc)));;
@@ -112,7 +118,7 @@ const Cart = () =>{
        const ds= lc.filter((cart)=> {
             return cart.phoneId.toString() !== e.target.id;
         })
-        console.log('liss',ds)
+        // console.log('liss',ds)
         lap=false;
         setCarts(ds);
         dispatch(removeCard(ds,2))&& 
@@ -120,7 +126,7 @@ const Cart = () =>{
         && dispatch(updateTotalPrice(sumPri(ds)));;
     }
     const handelPayment =()=>{
-        console.log('bill',listCarts);
+        // console.log('bill',listCarts);
         try { 
             const res = authServices.Order(currentUser.customerId,carts).then((data)=>{
                 if(data){
@@ -203,7 +209,16 @@ const Cart = () =>{
                 <Link to={'/product'} variant='Button'><Button variant='contained'>Add</Button></Link>
             </CardActions>
             </Container>
-            : <> Not found .</>}
+            : <>
+            <Container>
+                
+                <Card sx={{margin:3, padding:2}}>
+                    <Typography marginBottom={3} color='red'>Not product!</Typography>
+                    <Link to={'/product'} variant='Button' ><Button variant='contained' >Add</Button></Link>
+                </Card>
+                
+            </Container>
+            </>}
         </>
     );
 }
