@@ -1,4 +1,4 @@
-import {useEffect,useState} from 'react';
+import {useEffect,useState, useMemo} from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -34,15 +34,18 @@ const Cart = () =>{
     
     let listpro = listProducts.map( pro => pro);
     let lap =true;
-    const sumPro= (tam)=>{
-        let s=0;
-        if(tam.length <=0 ) return 0;
-        tam.forEach(value => {
-            s= value.quantily + s;
-        })
-        console.log('ttong',s);
-        return s;
-    }
+    const sumPro= useMemo(()=>{
+        const result = (tam)=>{
+            let s=0;
+            if(tam.length <=0 ) return 0;
+            tam.forEach(value => {
+                s= value.quantily + s;
+            })
+            
+            return s;
+        }
+        return result;
+    },[carts]);
     const sumPri= (tam)=>{
         let s=0;
         if(tam.length <=0 ) return 0;

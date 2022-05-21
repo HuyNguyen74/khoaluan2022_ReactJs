@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import { productsListSelector } from '../selector/selectors';
-import {useLocation} from 'react-router-dom';
+import {useLocation,useNavigate} from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -30,6 +30,7 @@ const ProductDetail = ()=> {
     
     const [isSelect, setIsSelect] = useState('');
     const {search} =useLocation();
+    const navigate =useNavigate();
     
     const listProducts= useSelector(productsListSelector);
     let tam={};
@@ -43,6 +44,9 @@ const ProductDetail = ()=> {
    const handleSelectSize= (e)=>{
        
        setIsSelect(e.target.value);
+   }
+   const onAddCart = (e) => {
+       navigate(`/cart?id=${e.target.id}`);
    }
    useEffect(()=>{
     console.log('render');
@@ -142,7 +146,7 @@ const ProductDetail = ()=> {
                              */}
                             
                         </Box>
-                        <Button variant='contained' color='success'>Add cart</Button>
+                        <Button variant='contained' color='success' id={product.phoneId} onClick={onAddCart}>Add cart</Button>
                     </Item>
                 </Grid>
             </Grid>
