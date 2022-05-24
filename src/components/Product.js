@@ -8,6 +8,7 @@ import {
   Stack,
   Pagination,
   CardMedia,
+  Container,
   
 } from '@mui/material';
 
@@ -57,44 +58,48 @@ const Product = () => {
 
         </div>
         {listProducts.length >0 ?
-        <div className='box-products' >
+        
+           <Container>
           {products.map((value) => (
-            <Card
-              key={value.phoneId}
-              sx={{
-                width: 230,
-                float: 'left',
-                marginLeft: 2.5,
-                marginRight: 2.5,
-                marginBottom: 2
-              }}
-            >
-              <CardMedia 
-                image={value.img}
-                sx={{width:'100%',height:'290px'}}
-                >
-                </CardMedia>
-              <CardContent>
-                <Typography sx={{ fontSize: 14 }} gutterBottom>
-                  {value.phoneName}
-                </Typography>
-                <Typography variant='body2' color='text.secondary'>
-                  {value.ram}
-                </Typography>
-                <Typography
-                  sx={{ mt: 1.5, textAlign: 'right' }}
-                  color='text.secondary'
-                >
-                  {value.price}
-                </Typography>
-              </CardContent>
-              <CardActions sx={{justifyContent:'space-around'}}>
-                <Link to={`/detail?id=${value.phoneId}`} > Detail</Link>
-                <Link to={`/cart?id=${value.phoneId}`} > Add Cart</Link>
-              </CardActions>
-            </Card>
+           
+              <Card
+                key={value.phoneId}
+                sx={{
+                  width: 230,
+                  float: 'left',
+                  marginLeft: 3.5,
+                  marginRight: 3.5,
+                  marginBottom: 5
+                }}
+              >
+                <CardMedia 
+                  image={value.img}
+                  sx={{width:'100%',height:'290px'}}
+                  >
+                  </CardMedia>
+                <CardContent>
+                  <Typography sx={{ fontSize: 14 }} gutterBottom>
+                    {value.phoneName}
+                  </Typography>
+                  <Typography variant='body2' color='text.secondary'>
+                    {value.ram}
+                  </Typography>
+                  <Typography
+                    sx={{ mt: 1.5, textAlign: 'right' }}
+                    color='text.secondary'
+                  >
+                    {value.price}
+                  </Typography>
+                </CardContent>
+                <CardActions sx={{justifyContent:'space-around'}}>
+                  <Link to={`/detail?id=${value.phoneId}`} > Detail</Link>
+                  <Link to={`/cart?id=${value.phoneId}`} > Add Cart</Link>
+                </CardActions>
+              </Card>
+           
           ))}
-        </div>
+        
+        </Container>
         : <>
         <Typography>Not Found.</Typography>
         </>

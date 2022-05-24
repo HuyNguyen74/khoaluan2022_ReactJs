@@ -26,6 +26,7 @@ async function login(username, password) {
 }
 
 const Update = async(id,name,email,phone,username,pass) => {
+  
   const response = await axiosClient
     .post('/updateuser',{
       customerId: id,
@@ -34,6 +35,7 @@ const Update = async(id,name,email,phone,username,pass) => {
       phone: phone,
       userName: username,
       pass: pass,
+    
     });
     if (response !== undefined && response !== null && response !== '') {
       localStorage.setItem("user", JSON.stringify(response));

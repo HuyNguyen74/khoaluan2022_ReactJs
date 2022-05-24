@@ -36,8 +36,9 @@ export default function StickyFooter() {
             theme.palette.mode === 'light'
               ? theme.palette.grey[200]
               : theme.palette.grey[800],
+          marginTop: 10,
         }}
-        marginTop={4}
+        
       >
         <Container maxWidth="sm">
           <Typography variant="body1" align='center'>

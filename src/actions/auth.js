@@ -114,9 +114,7 @@ export const Update = (id,name,email,phone,username,pass) => (dispatch) => {
                 error.response.data.message) ||
               error.message ||
               error.toString();
-            dispatch({
-              type: LOGIN_FAIL,
-            });
+           
             dispatch({
               type: SET_MESSAGE,
               payload: message,
