@@ -12,8 +12,9 @@ import productApi from '../services/product.services';
 import { useDispatch, useSelector } from "react-redux";
 
 const History = () =>{
-    const [histories,setHistories]= useState([]);
+    const [histories,setHistories]= useState(['']);
     const { user: currentUser } = useSelector((state) => state.auth);
+    console.log(histories);
     useEffect(()=>{
         
         try {
@@ -32,7 +33,7 @@ const History = () =>{
     return(
 
        <>
-        {histories.length >0 && currentUser ? 
+        {histories.length >0 && currentUser && histories[0]!== '' ? 
             <Container component={'main'} >
                 <Typography align='center' borderBottom={2} borderColor='Highlight' margin={4} minWidth={650}>History</Typography>
             <TableContainer component={Paper} sx={{margin: 4,alignItems:'center'}}>
@@ -85,7 +86,9 @@ const History = () =>{
             </Table>
             </TableContainer>
             </Container>
-            : <> Not found .</>}
+            : currentUser ? histories[0]==='' ? <> Loading ...</> :<> Not Found. </> : <> Login before .</>
+            
+            }
         </>
     );
 }

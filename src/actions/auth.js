@@ -12,7 +12,7 @@ export const signup = (fullname,username, email, password, phone) => (dispatch) 
     return AuthService.register(fullname,username ,email ,password,phone).then(
         (response) => {
             console.log('status',response)
-            if(response){
+            if(response.data){
                 dispatch({
                     type: REGISTER_SUCCESS,
                 });

@@ -1,6 +1,5 @@
-import axios from 'axios';
+
 import axiosClient from './axiosClient';
-const API_URL = 'http://localhost:8080/khoaluan/api/';
 const register = async (fullname,username, email, password, phone) => {
   
     const response= await axiosClient.post("/signup",{
@@ -10,6 +9,7 @@ const register = async (fullname,username, email, password, phone) => {
         pass: password,
         phone: phone
     });
+    console.log('regis', response);
     return response;
 };
 async function login(username, password) {
