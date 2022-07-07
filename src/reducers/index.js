@@ -10,3 +10,9 @@ export default combineReducers({
     prdt,
     cart,
 });
+// export default {
+//     auth,
+//     message,
+//     prdt,
+//     cart
+// }

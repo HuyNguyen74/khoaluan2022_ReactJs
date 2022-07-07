@@ -1,8 +1,4 @@
-import axios from 'axios';
-import { API_URL } from '../actions/types';
 import axiosClient from './axiosClient';
-
-
 // const listProduct= async ()=> {
 //     try {
 //         let res= await axios.get(`${API_URL}/listproduct`);

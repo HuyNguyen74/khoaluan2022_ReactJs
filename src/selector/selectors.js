@@ -1,15 +1,11 @@
 export const productsListSelector = (state) =>{
     // return state.prdt.productsList
-    const results =state.prdt.productsList.filter((product)=>{
-        
-        return (
-            state.prdt.filters.selectType.length >0? 
+    const results =state.prdt.productsList.filter((product)=>(
+        state.prdt.filters.selectType.length > 0 ?
             product.phoneName.toLowerCase().includes(state.prdt.filters.search.toLowerCase()) && state.prdt.filters.selectType.includes(product.type.typeId)
-            :product.phoneName.toLowerCase().includes(state.prdt.filters.search.toLowerCase())
-            
-        );
-            
-        });
+            : product.phoneName.toLowerCase().includes(state.prdt.filters.search.toLowerCase())
+
+    ));
 
             return results.sort((prd1,prd2)=>{
 
